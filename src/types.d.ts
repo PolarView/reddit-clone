@@ -1,4 +1,4 @@
-import { serverTimestamp } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 export type userSignupForm = {
   email: string;
   password: string;
@@ -12,7 +12,6 @@ export type userLoginForm = {
 
 export type Community = {
   id: string;
-
   creatorId: string;
   communityType: "Public" | "Restricted" | "Private";
   numberOfMemebers: number;

@@ -53,6 +53,7 @@ const CreateComunityModal: React.FC<CreateComunityModalProps> = ({ isOpen, handl
   };
 
   const createCommunityHandler = async () => {
+    // validation
     const minCommunityNameLength = 3;
     const format = /^[A-Za-z0-9 ]+$/;
     if (createCommunityError) setCreateCommunityError(null);
