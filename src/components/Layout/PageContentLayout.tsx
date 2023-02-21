@@ -7,20 +7,12 @@ type PageContentLayoutProps = {
 
 const PageContentLayout: React.FC<PageContentLayoutProps> = ({ children }) => {
   return (
-    <Flex padding="16px 0px" justify="center" border="3px solid red">
-      <Flex width="95%" maxWidth="850px" justify="center" border="2px solid pink">
-        <Flex
-          border="1px solid gray"
-          width={{ base: "100%", md: "65%" }}
-          mr={{ base: "none", md: 6 }}
-          direction="column">
+    <Flex padding="16px 0px" justify="center">
+      <Flex width="95%" maxWidth="850px" justify="center">
+        <Flex width={{ base: "100%", md: "65%" }} mr={{ base: "none", md: 6 }} direction="column">
           {children[0]}
         </Flex>
-        <Flex
-          border="1px solid gray"
-          display={{ base: "none", md: "flex" }}
-          flexGrow={1}
-          direction="column">
+        <Flex display={{ base: "none", md: "flex" }} flexGrow={1} direction="column">
           {children[1]}
         </Flex>
       </Flex>

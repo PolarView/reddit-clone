@@ -1,10 +1,5 @@
 import { atom } from "recoil";
-
-export type CommunitySnippets = {
-  communityId: string;
-  isModerator?: boolean;
-  imageURL?: string;
-};
+import { CommunitySnippets } from "@/types";
 
 type CommunityState = {
   mySnippets: CommunitySnippets[];
