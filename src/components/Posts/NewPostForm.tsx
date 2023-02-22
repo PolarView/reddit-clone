@@ -11,6 +11,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { firestore, storage } from "../../firebase/clientApp";
 import NewPostTab from "./NewPostTab";
 import TextInputs from "./PostForm/TextInputs";
+import UplaodImageOrVideo from "./PostForm/UplaodImageOrVideo";
 
 const formTabs = [
   {
@@ -45,7 +46,8 @@ export type textInputsState = {
   description: string;
 };
 
-type setTextInputs = (value: string) => void;
+const videoAssetTypes = ["video/mp4", "video/webm", "video/ogg"];
+const imageAssetTypes = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
 
 const NewPostForm: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<string>(formTabs[0].title);
@@ -53,13 +55,52 @@ const NewPostForm: React.FC = () => {
     title: "",
     description: ""
   });
+  const [loading, setLoading] = useState(false);
+  const [videoAsset, setVideoAsset] = useState<null | string>(null);
+
+  const [imageAsset, setImageAsset] = useState<null | string>(null);
+
+  const handleUploadAsset = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileType = event.target.files![0].type;
+    if (videoAssetTypes.includes(fileType)) {
+      const reader = new FileReader();
+      if (event.target.files?.[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+      reader.onload = (readerEvent) => {
+        if (readerEvent.target?.result) {
+          setVideoAsset(readerEvent.target?.result as string);
+          setImageAsset(null);
+        }
+      };
+    } else if (imageAssetTypes.includes(fileType)) {
+      const reader = new FileReader();
+      if (event.target.files?.[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+      reader.onload = (readerEvent) => {
+        if (readerEvent.target?.result) {
+          setImageAsset(readerEvent.target?.result as string);
+          setVideoAsset(null);
+        }
+      };
+    }
+  };
 
   const handleCreatePost = async () => {};
 
-  const handlePostInputsChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handlePostInputsChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const {
+      target: { name, value }
+    } = event;
+
     setTextInputs((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }));
   };
 
@@ -76,7 +117,21 @@ const NewPostForm: React.FC = () => {
         ))}
       </Flex>
       <Flex p={4}>
-        <TextInputs inputsValues={textInputs} changeInuptsValues={handlePostInputsChange} />
+        {selectedTab === "Post" && (
+          <TextInputs
+            inputsValues={textInputs}
+            changeInuptsValues={handlePostInputsChange}
+            createPost={handleCreatePost}
+            loading={loading}
+          />
+        )}
+        {selectedTab === "Images & Video" && (
+          <UplaodImageOrVideo
+            handleUploadAsset={handleUploadAsset}
+            videoAsset={videoAsset}
+            imageAsset={imageAsset}
+          />
+        )}
       </Flex>
     </Flex>
   );

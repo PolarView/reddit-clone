@@ -4,10 +4,17 @@ import { textInputsState } from "../NewPostForm";
 
 type TextInputsProps = {
   inputsValues: textInputsState;
-  changeInuptsValues: any;
+  changeInuptsValues: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  createPost: () => void;
+  loading: boolean;
 };
 
-const TextInputs: React.FC<TextInputsProps> = ({ inputsValues, changeInuptsValues }) => {
+const TextInputs: React.FC<TextInputsProps> = ({
+  inputsValues,
+  changeInuptsValues,
+  createPost,
+  loading
+}) => {
   return (
     <Stack spacing={3} width="100%">
       <Input
@@ -41,7 +48,12 @@ const TextInputs: React.FC<TextInputsProps> = ({ inputsValues, changeInuptsValue
         height="100px"
       />
       <Flex justify="flex-end">
-        <Button height="34px" padding="0px 30px" onClick={() => {}}>
+        <Button
+          height="34px"
+          padding="0px 30px"
+          isLoading={loading}
+          disabled={!inputsValues.title}
+          onClick={createPost}>
           Post
         </Button>
       </Flex>
