@@ -6,12 +6,14 @@ type UplaodImageOrVideoProps = {
   handleUploadAsset: (e: React.ChangeEvent<HTMLInputElement>) => void;
   videoAsset: null | string;
   imageAsset: null | string;
+  resetAsset: () => void;
 };
 
 const UplaodImageOrVideo: React.FC<UplaodImageOrVideoProps> = ({
   handleUploadAsset,
   videoAsset,
-  imageAsset
+  imageAsset,
+  resetAsset
 }) => {
   const assetRef = useRef<HTMLInputElement>(null);
 
@@ -20,6 +22,8 @@ const UplaodImageOrVideo: React.FC<UplaodImageOrVideoProps> = ({
   useEffect(() => {
     if (videoAsset || imageAsset) {
       setIsAsset(true);
+    } else {
+      setIsAsset(false);
     }
   }, [videoAsset, imageAsset]);
 
@@ -38,10 +42,22 @@ const UplaodImageOrVideo: React.FC<UplaodImageOrVideoProps> = ({
           <input ref={assetRef} type="file" hidden onChange={(e) => handleUploadAsset(e)} />
         </Flex>
       ) : (
-        <>
+        <Box position="relative">
           {videoAsset && <video src={videoAsset} loop={true} controls></video>}
-          {imageAsset && <CImage src={imageAsset} width={700} height={400} alt="Post picture" />}
-        </>
+          {imageAsset && <CImage src={imageAsset} width={700} height={500} alt="Post picture" />}
+          {isAsset && (
+            <Button
+              fontWeight={600}
+              fontSize={22}
+              variant="unstyled"
+              position="absolute"
+              top={0}
+              right={0}
+              onClick={resetAsset}>
+              x
+            </Button>
+          )}
+        </Box>
       )}
     </Flex>
   );

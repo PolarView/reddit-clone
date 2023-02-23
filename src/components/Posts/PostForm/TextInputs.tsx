@@ -47,16 +47,6 @@ const TextInputs: React.FC<TextInputsProps> = ({
         }}
         height="100px"
       />
-      <Flex justify="flex-end">
-        <Button
-          height="34px"
-          padding="0px 30px"
-          isLoading={loading}
-          disabled={!inputsValues.title}
-          onClick={createPost}>
-          Post
-        </Button>
-      </Flex>
     </Stack>
   );
 };
