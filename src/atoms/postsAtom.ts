@@ -2,6 +2,7 @@ import { Timestamp } from "firebase/firestore";
 import { atom } from "recoil";
 
 export type Post = {
+  id?: string;
   communityId: string;
   creatorId: string;
   creatorDisplayName: string;
@@ -9,7 +10,10 @@ export type Post = {
   body: string;
   numberOfComments: number;
   voteStatus: number;
-  assetUrl?: string;
+  assetUrl?: {
+    url: string;
+    assetType: string;
+  };
   communityImageUrl?: string;
   createdAt: Timestamp;
 };

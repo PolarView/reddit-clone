@@ -8,6 +8,7 @@ import NotFound from "@/components/comunities/NotFound";
 import Header from "@/components/comunities/Header";
 import PageContentLayout from "@/components/Layout/PageContentLayout";
 import CreatePostLink from "@/components/comunities/CreatePostLink";
+import Posts from "@/components/Posts/Posts";
 type CommunityPageProps = {
   communityData: Community;
 };
@@ -20,6 +21,7 @@ const communityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
       <PageContentLayout>
         <>
           <CreatePostLink />
+          <Posts communityData={communityData} />
         </>
         <>right</>
       </PageContentLayout>

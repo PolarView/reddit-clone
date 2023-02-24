@@ -144,10 +144,14 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
 
         // add an imageUrl to the post in db
         await updateDoc(postDocRef, {
-          assetUrl: downloadAssetUrl
+          assetUrl: {
+            url: downloadAssetUrl,
+            assetType: videoAsset ? "video" : "image"
+          }
         });
       }
 
+      router.back();
       setLoading(false);
       setErrorStatus(false);
     } catch (err: any) {

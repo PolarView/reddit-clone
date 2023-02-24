@@ -48,11 +48,13 @@ const UplaodImageOrVideo: React.FC<UplaodImageOrVideoProps> = ({
           {isAsset && (
             <Button
               fontWeight={600}
-              fontSize={22}
+              fontSize={24}
               variant="unstyled"
               position="absolute"
               top={0}
               right={0}
+              color="white"
+              opacity="0.7"
               onClick={resetAsset}>
               x
             </Button>
