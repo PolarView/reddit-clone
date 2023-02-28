@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks*/
-
 import { Flex, Box, Text } from "@chakra-ui/react";
 import PageContentLayout from "@/components/Layout/PageContentLayout";
 import NewPostForm from "@/components/Posts/NewPostForm";

@@ -10,6 +10,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ communityData }) => {
   const { communityStateValue, loading, onJoinLeaveCommunity } = useCommunityData();
+
   const isJoined = !!communityStateValue.mySnippets.find(
     (item) => item.communityId === communityData.id
   );
@@ -19,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
       <Box bg="blue.500" height="50%"></Box>
       <Flex bg="white" justify="center" flexGrow={1}>
         <Flex maxWidth="850px" width="95%">
-          {communityData.imageUrl ? (
+          {communityStateValue.currentCommunity?.imageUrl ? (
             <CImage
               position="relative"
               top={-3}
@@ -28,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
               borderColor="white"
               width={14}
               height={14}
-              src={communityData.imageUrl}
+              src={communityStateValue.currentCommunity.imageUrl}
               alt="community icon"
             />
           ) : (

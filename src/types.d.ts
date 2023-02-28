@@ -15,7 +15,7 @@ export type Community = {
   id: string;
   creatorId: string;
   communityType: "Public" | "Restricted" | "Private";
-  numberOfMemebers: number;
+  numberOfMembers: number;
   createdAt?: Timestamp;
   imageUrl?: string;
 };
@@ -23,5 +23,5 @@ export type Community = {
 export type CommunitySnippets = {
   communityId: string;
   isModerator?: boolean;
-  imageURL?: string;
+  imageUrl?: string;
 };

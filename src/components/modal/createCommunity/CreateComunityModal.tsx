@@ -90,6 +90,7 @@ const CreateComunityModal: React.FC<CreateComunityModalProps> = ({ isOpen, handl
       });
 
       setLoading(false);
+      handleCloseModal();
     } catch (err: any) {
       setCreateCommunityError(err.message);
       setLoading(false);
