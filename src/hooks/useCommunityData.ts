@@ -17,7 +17,10 @@ export const useCommunityData = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!user || !!communityStateValue.mySnippets.length) return;
+    if (!user || !!communityStateValue.mySnippets.length) {
+      setCommunityStateValue((prev) => ({ ...prev, mySnippets: [] }));
+      return;
+    }
 
     getSnippets();
   }, [user]);

@@ -18,15 +18,23 @@ export type Post = {
   createdAt: Timestamp;
 };
 
+export type PostVote = {
+  id?: string;
+  communityId: string;
+  voteValue: number;
+  postId: string;
+};
+
 type PostState = {
   selectedPost: Post | null;
   posts: Post[];
-  //TODO - votes
+  postVotes: PostVote[];
 };
 
 const defualtPostState: PostState = {
   selectedPost: null,
-  posts: []
+  posts: [],
+  postVotes: []
 };
 
 export const postState = atom<PostState>({

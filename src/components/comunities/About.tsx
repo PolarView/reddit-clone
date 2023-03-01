@@ -42,7 +42,6 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
   } = useUpdateCommunityAva();
   const [user] = useAuthState(auth);
   const communityImageRef = useRef<HTMLInputElement>(null);
-  console.log(communityData);
 
   return (
     <Box position="sticky" top="14px">
