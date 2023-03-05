@@ -8,12 +8,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { communityState } from "@/atoms/communitiesAtom";
 import { authModalState } from "@/atoms/authModalAtom";
+import { useRouter } from "next/router";
 
 export const usePosts = () => {
   const [postStateValue, setPostStateValue] = useRecoilState(postState);
   const { currentCommunity } = useRecoilValue(communityState);
   const setAuthModalState = useSetRecoilState(authModalState);
   const [user] = useAuthState(auth);
+  const router = useRouter();
 
   useEffect(() => {
     if (!user || !currentCommunity?.id) return;
@@ -22,12 +24,20 @@ export const usePosts = () => {
   }, [user, currentCommunity?.id]);
 
   useEffect(() => {
+    console.log(user);
     if (!user) {
       setPostStateValue((prev) => ({ ...prev, postVotes: [] }));
+      console.log("!user postVal works");
     }
   }, [user]);
 
-  const onVote = async (post: Post, vote: number, communityId: string) => {
+  const onVote = async (
+    event: React.MouseEvent<SVGElement, MouseEvent>,
+    post: Post,
+    vote: number,
+    communityId: string
+  ) => {
+    event.stopPropagation();
     if (!user?.uid) {
       setAuthModalState({ open: true, view: "login" });
       return;
@@ -136,9 +146,19 @@ export const usePosts = () => {
     }
   };
 
-  const onSelectPost = () => {};
+  const onSelectPost = (post: Post) => {
+    setPostStateValue((prev) => {
+      const { communityId } = router.query;
+      router.push(`/r/${communityId}/comments/${post.id}`);
+      return { ...prev, selectedPost: post };
+    });
+  };
 
-  const onDeletePost = async (post: Post): Promise<boolean> => {
+  const onDeletePost = async (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    post: Post
+  ): Promise<boolean> => {
+    event.stopPropagation();
     try {
       // check if post has an asset
       if (post.assetUrl) {
