@@ -9,6 +9,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { Post } from "@/atoms/postsAtom";
 import About from "@/components/comunities/About";
 import { useCommunityData } from "@/hooks/useCommunityData";
+import Comments from "@/components/Posts/comments/Comments";
 
 const SinglePostView: React.FC = () => {
   const [user] = useAuthState(auth);
@@ -40,7 +41,6 @@ const SinglePostView: React.FC = () => {
     <>
       <PageContentLayout>
         <>
-          {console.log(postStateValue)}
           {postStateValue.selectedPost && (
             <PostItem
               post={postStateValue.selectedPost!}
@@ -55,7 +55,11 @@ const SinglePostView: React.FC = () => {
             />
           )}
 
-          {/* comments */}
+          <Comments
+            user={user}
+            selectedPost={postStateValue.selectedPost}
+            communityId={communityStateValue.currentCommunity?.id}
+          />
         </>
         {communityStateValue.currentCommunity && (
           <About communityData={communityStateValue.currentCommunity} />

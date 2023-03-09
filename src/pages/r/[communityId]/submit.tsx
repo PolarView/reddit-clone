@@ -3,9 +3,12 @@ import PageContentLayout from "@/components/Layout/PageContentLayout";
 import NewPostForm from "@/components/Posts/NewPostForm";
 import { auth } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
+import About from "@/components/comunities/About";
+import { useCommunityData } from "@/hooks/useCommunityData";
 
 const submit: React.FC = () => {
   const [user] = useAuthState(auth);
+  const { communityStateValue } = useCommunityData();
 
   return (
     <>
@@ -18,7 +21,11 @@ const submit: React.FC = () => {
           </Box>
           {user && <NewPostForm user={user} />}
         </>
-        <>right</>
+        <>
+          {communityStateValue.currentCommunity && (
+            <About communityData={communityStateValue.currentCommunity} />
+          )}
+        </>
       </PageContentLayout>
     </>
   );

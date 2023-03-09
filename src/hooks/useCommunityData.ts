@@ -47,11 +47,11 @@ export const useCommunityData = () => {
   useEffect(() => {
     const { communityId } = router.query;
     console.log(communityId, Boolean(communityStateValue.currentCommunity));
-    if (communityId) {
+    if (communityId && communityStateValue.currentCommunity?.id === "") {
       fetchCommunity(communityId as string);
       console.log("fetching", communityStateValue.currentCommunity);
     }
-  }, [router.query, communityStateValue.currentCommunity]);
+  }, [router.query, communityStateValue.currentCommunity?.id]);
 
   const getSnippets = async () => {
     setLoading(true);

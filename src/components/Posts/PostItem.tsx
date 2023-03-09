@@ -55,8 +55,20 @@ const PostItem: React.FC<PostItemProps> = ({
   const [loadingAsset, setLoadingAsset] = useState(true);
   const [error, setError] = useState(false);
   const [loadingDeleting, setLoadingDeleting] = useState(false);
+  const [isSharedLink, setIsSharedLink] = useState<boolean>(false);
   const singlePostView = !onSelectPost;
   const router = useRouter();
+
+  const copyToClipBoard = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    try {
+      const currentUrl = router.asPath;
+      await navigator.clipboard.writeText(currentUrl);
+      setIsSharedLink(true);
+    } catch (err) {
+      setIsSharedLink(false);
+    }
+  };
 
   const handleDeletePost = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     try {
@@ -156,6 +168,7 @@ const PostItem: React.FC<PostItemProps> = ({
             </Flex>
 
             <Flex
+              onClick={(e) => copyToClipBoard(e)}
               align="center"
               borderRadius={4}
               fontSize={17}
@@ -165,8 +178,8 @@ const PostItem: React.FC<PostItemProps> = ({
               gap={2}
               padding="2px 8px"
               _hover={{ bg: "gray.100", color: "black" }}>
-              <Icon as={IoArrowRedoOutline} />
-              <Text>share</Text>
+              {isSharedLink || <Icon as={IoArrowRedoOutline} />}
+              <Text>{isSharedLink ? "Copied!" : "Share"}</Text>
             </Flex>
 
             <Flex
