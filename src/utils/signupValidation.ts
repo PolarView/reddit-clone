@@ -2,10 +2,10 @@ import { userSignupForm } from "@/types";
 
 export const signUpValidation = ({ email, password, confirmPassword }: userSignupForm) => {
   const regexpPass = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-  const minPassLength = 6;
+  const minPassLength = 10;
 
   if (password.length < minPassLength) {
-    return "Min 6 chars in pass";
+    return "Min 10 chars in pass";
   }
 
   if (!regexpPass.test(password)) {

@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps*/
-
 import {
   ModalContent,
   Modal,

@@ -13,7 +13,7 @@ import { User } from "firebase/auth";
 
 type ErrorStatus =
   | ""
-  | "Min 6 chars in pass"
+  | "Min 10 chars in pass"
   | "Password should contain at least one number and one special character"
   | "Passes doesnt match";
 
@@ -48,6 +48,7 @@ const Signup: React.FC = () => {
 
   const onSumbmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("sign up");
     setErrorStatus(signUpValidation(userSignupForm));
     if (errorStatus === "") return;
 
@@ -61,6 +62,7 @@ const Signup: React.FC = () => {
   useEffect(() => {
     if (userCred) {
       createUserDocumnet(userCred.user);
+      console.log("sign up");
     }
   }, [userCred]);
 
@@ -128,7 +130,7 @@ const Signup: React.FC = () => {
         mb={2}
         fontSize="19px"
         isLoading={loading}>
-        Login
+        Sign up
       </Button>
       <Flex align="center" justify="center" width="100%" fontSize="12px">
         <Text mr="6px">Forgot your password? </Text>
