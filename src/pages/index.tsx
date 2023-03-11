@@ -126,7 +126,6 @@ export default function Home() {
     <>
       <PageContentLayout>
         <>
-          <CreatePostLink />
           {homeFeedLoading ? (
             <Spinner />
           ) : (
