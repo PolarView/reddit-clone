@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useState } from "react";
 import { Flex, Textarea, Button, Text } from "@chakra-ui/react";
 import { User } from "firebase/auth";
-import AuthButtons from "@/components/Navbar/rightContent/AuthButtons";
+import AuthButtons from "@/components/Navbar/rightContent/AuthBtns";
 
 type CommentInputProps = {
   comment: string;

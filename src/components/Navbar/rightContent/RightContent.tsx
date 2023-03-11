@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
-import AuthButtons from "./AuthButtons";
+import AuthButtons from "./AuthBtns";
 import AuthModal from "../../modal/auth/AuthModal";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/clientApp";

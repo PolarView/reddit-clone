@@ -7,8 +7,7 @@ import { User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 const AuthButtons: React.FC = () => {
   const [signInWithGoogle, userCred, googleLoading, googleError] = useSignInWithGoogle(auth);
-  //TODO: 1. make an apple auth with firebase
-  //TODO: 2. add google error types in firebase/errors.ts
+
   // const [signInWithApple, appleUser, appleLoading, AppleError] = useSignInWithApple(auth);
   const createUserDocumnet = async (user: User) => {
     const userDocRef = doc(firestore, "users", user.uid);
