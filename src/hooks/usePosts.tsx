@@ -7,7 +7,7 @@ import { collection, deleteDoc, doc, getDocs, query, where, writeBatch } from "f
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { communityState } from "@/atoms/communitiesAtom";
-import { authModalState } from "@/atoms/authModalAtom";
+import authModalState from "@/atoms/authModalAtom";
 import { useRouter } from "next/router";
 
 export const usePosts = () => {

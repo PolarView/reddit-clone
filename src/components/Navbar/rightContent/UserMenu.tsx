@@ -20,7 +20,7 @@ import { CgProfile } from "react-icons/cg";
 import { auth } from "@/firebase/clientApp";
 import { useSetRecoilState, useResetRecoilState } from "recoil";
 import { communityState } from "@/atoms/communitiesAtom";
-import { authModalState } from "../../../atoms/authModalAtom";
+import authModalState from "../../../atoms/authModalAtom";
 
 type UserMenuProps = {
   user?: User | null;
