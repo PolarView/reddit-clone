@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Icon, Input } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { authModalState } from "@/atoms/authModalAtom";
+import authModalState from "@/atoms/authModalAtom";
 import { useSetRecoilState } from "recoil";
 import { BsLink45Deg } from "react-icons/bs";
 import { FaReddit } from "react-icons/fa";

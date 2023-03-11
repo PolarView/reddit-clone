@@ -10,7 +10,9 @@ const defaultModalState: AuthModalType = {
   view: "login"
 };
 
-export const authModalState = atom<AuthModalType>({
+const authModalState = atom<AuthModalType>({
   key: "authModal",
   default: defaultModalState
 });
+
+export default authModalState;

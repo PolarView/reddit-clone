@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { communityState } from "../atoms/communitiesAtom";
 import { auth, firestore } from "../firebase/clientApp";
-import { authModalState } from "@/atoms/authModalAtom";
+import authModalState from "@/atoms/authModalAtom";
 import { getDoc } from "firebase/firestore";
 
 import { Community } from "@/types";
