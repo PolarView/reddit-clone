@@ -149,8 +149,17 @@ export const usePosts = () => {
   const onSelectPost = (post: Post) => {
     setPostStateValue((prev) => {
       const { communityId } = router.query;
-      router.push(`/r/${communityId}/comments/${post.id}`);
-      return { ...prev, selectedPost: post };
+
+      if (communityId) {
+        // case when we click on postItem from /r/communityId/
+        router.push(`/r/${communityId}/comments/${post.id}`);
+        return { ...prev, selectedPost: post };
+      } else {
+        // case when we click on postItem from home page and dont have a communityId in url
+        const { communityId } = post;
+        router.push(`/r/${communityId}/comments/${post.id}`);
+        return { ...prev, selectedPost: post };
+      }
     });
   };
 

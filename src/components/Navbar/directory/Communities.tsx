@@ -1,36 +1,73 @@
 import React, { useState } from "react";
+import { Box, Flex, Icon, MenuItem, Text } from "@chakra-ui/react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { FaReddit } from "react-icons/fa";
+import { GrAdd } from "react-icons/gr";
+import { useRecoilValue } from "recoil";
+import { communityState } from "../../../atoms/communitiesAtom";
+import { auth } from "../../../firebase/clientApp";
 import CreateComunityModal from "@/components/modal/createCommunity/CreateComunityModal";
-import { MenuGroup, MenuItem, Flex, Text, Icon } from "@chakra-ui/react";
-import { CImage } from "@/chakra/factory";
-import { AiOutlinePlus } from "react-icons/ai";
+import MenuListItem from "./MenuListItem";
+import { useCommunityData } from "@/hooks/useCommunityData";
+
 const Communities: React.FC = () => {
-  const [isCreateCommunityModalOpen, setIsCreateCommunityModalOpen] = useState(false);
+  const [user] = useAuthState(auth);
+  const [open, setOpen] = useState(false);
+  const {
+    communityStateValue: { mySnippets }
+  } = useCommunityData();
+  console.log(mySnippets);
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
 
   return (
     <>
-      <CreateComunityModal
-        isOpen={isCreateCommunityModalOpen}
-        handleCloseModal={() => setIsCreateCommunityModalOpen(false)}
-      />
-
-      <MenuItem>
-        <Flex align="center" gap={2} onClick={() => setIsCreateCommunityModalOpen(true)}>
-          <Icon as={AiOutlinePlus} fontSize={22} />
-          <Text>Create Community</Text>
-        </Flex>
-      </MenuItem>
-      <MenuItem>
-        <Flex align="center" gap={2}>
-          <CImage src="/images/redditlogo.png" width={8} height={8} rounded="50%" alt="groupIcon" />
-          <Text>my/best-ideot-club-group</Text>
-        </Flex>
-      </MenuItem>
-      <MenuItem>
-        <Flex align="center" gap={2}>
-          <CImage src="/images/redditlogo.png" width={8} height={8} rounded="50%" alt="groupIcon" />
-          <Text>my/best-ideot-club-group</Text>
-        </Flex>
-      </MenuItem>
+      {mySnippets.find((item) => item.isModerator) && (
+        <Box mt={3} mb={4}>
+          <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
+            MODERATING
+          </Text>
+          {mySnippets
+            .filter((item) => item.isModerator)
+            .map((snippet) => (
+              <MenuListItem
+                key={snippet.communityId}
+                displayText={`r/${snippet.communityId}`}
+                link={`/r/${snippet.communityId}`}
+                icon={FaReddit}
+                iconColor="blue.500"
+                imageUrl={snippet.imageUrl}
+              />
+            ))}
+        </Box>
+      )}
+      <Box mt={3} mb={4}>
+        <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
+          MY COMMUNITIES
+        </Text>
+        <MenuItem
+          width="100%"
+          fontSize="10pt"
+          _hover={{ bg: "gray.100" }}
+          onClick={() => setOpen(true)}>
+          <Flex alignItems="center">
+            <Icon fontSize={20} mr={2} as={GrAdd} />
+            Create Community
+          </Flex>
+        </MenuItem>
+        <CreateComunityModal isOpen={open} handleCloseModal={handleCloseModal} />
+        {mySnippets.map((snippet) => (
+          <MenuListItem
+            key={snippet.communityId}
+            icon={FaReddit}
+            displayText={`r/${snippet.communityId}`}
+            link={`/r/${snippet.communityId}`}
+            iconColor="blue.500"
+            imageUrl={snippet.imageUrl}
+          />
+        ))}
+      </Box>
     </>
   );
 };

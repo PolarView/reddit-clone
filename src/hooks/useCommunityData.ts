@@ -20,11 +20,12 @@ export const useCommunityData = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user || !!communityStateValue.mySnippets.length) {
-      setCommunityStateValue((prev) => ({ ...prev, mySnippets: [] }));
+    if (!user) {
+      setCommunityStateValue((prev) => ({ ...prev, mySnippets: [], snippetsFetched: false }));
       return;
     }
     getSnippets();
+    console.log("useEffect snippets");
   }, [user]);
 
   const fetchCommunity = async (communityId: string) => {
@@ -54,6 +55,7 @@ export const useCommunityData = () => {
   }, [router.query, communityStateValue.currentCommunity?.id]);
 
   const getSnippets = async () => {
+    console.log("gett snipps");
     setLoading(true);
     try {
       const snippetDocs = await getDocs(
@@ -63,6 +65,7 @@ export const useCommunityData = () => {
       const snippets = snippetDocs.docs.map((doc) => ({ ...doc.data() }));
       setCommunityStateValue((prev) => ({
         ...prev,
+        snippetsFetched: true,
         mySnippets: snippets as CommunitySnippets[]
       }));
     } catch (err: any) {
@@ -92,7 +95,8 @@ export const useCommunityData = () => {
 
       const newSnippet = {
         communityId: communityData.id,
-        imageUrl: communityData.imageUrl || ""
+        imageUrl: communityData.imageUrl || "",
+        isModerator: communityData.creatorId === user?.uid
       };
 
       batch.set(
@@ -108,6 +112,10 @@ export const useCommunityData = () => {
 
       setCommunityStateValue((prev) => ({
         ...prev,
+        currentCommunity: {
+          ...prev.currentCommunity,
+          numberOfMembers: prev.currentCommunity?.numberOfMembers! + 1
+        } as Community,
         mySnippets: [...prev.mySnippets, newSnippet]
       }));
     } catch (err: any) {
@@ -133,6 +141,10 @@ export const useCommunityData = () => {
 
       setCommunityStateValue((prev) => ({
         ...prev,
+        currentCommunity: {
+          ...prev.currentCommunity,
+          numberOfMembers: prev.currentCommunity?.numberOfMembers! - 1
+        } as Community,
         mySnippets: prev.mySnippets.filter((snippet) => snippet.communityId !== communityData.id)
       }));
     } catch (err: any) {

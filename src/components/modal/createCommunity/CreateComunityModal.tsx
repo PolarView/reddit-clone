@@ -24,6 +24,8 @@ import { doc, getDoc, runTransaction, serverTimestamp, setDoc } from "firebase/f
 import { firestore } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/clientApp";
+import { Router, useRouter } from "next/router";
+import { useDirectory } from "@/hooks/useDirectory";
 
 type CreateComunityModalProps = {
   isOpen: boolean;
@@ -38,7 +40,9 @@ const CreateComunityModal: React.FC<CreateComunityModalProps> = ({ isOpen, handl
   const [communityType, setCommunityType] = useState<CommunityType>(null);
   const [createCommunityError, setCreateCommunityError] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const { toggleMenuOpen } = useDirectory();
   const [user] = useAuthState(auth);
+  const router = useRouter();
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInputLength = e.target.value.length;
@@ -89,8 +93,10 @@ const CreateComunityModal: React.FC<CreateComunityModalProps> = ({ isOpen, handl
         });
       });
 
+      router.push(`/r/${communityName}`);
       setLoading(false);
       handleCloseModal();
+      toggleMenuOpen();
     } catch (err: any) {
       setCreateCommunityError(err.message);
       setLoading(false);

@@ -21,7 +21,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [communityData]);
 
   const getPosts = async () => {
     try {

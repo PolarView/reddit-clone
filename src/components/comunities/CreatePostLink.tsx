@@ -8,7 +8,12 @@ import { FaReddit } from "react-icons/fa";
 import { IoImageOutline } from "react-icons/io5";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/clientApp";
-const CreatePostLink: React.FC = () => {
+
+type CreatePostLinkProps = {
+  homePage?: boolean;
+};
+
+const CreatePostLink: React.FC<CreatePostLinkProps> = ({ homePage }) => {
   const [user] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
   const router = useRouter();

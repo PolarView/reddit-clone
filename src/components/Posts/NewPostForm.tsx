@@ -48,6 +48,7 @@ const formTabs = [
 
 type NewPostFormProps = {
   user: User;
+  communityImageUrl?: string;
 };
 
 export type TabItem = {
@@ -63,7 +64,7 @@ export type textInputsState = {
 const videoAssetTypes = ["video/mp4", "video/webm", "video/ogg"];
 const imageAssetTypes = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
 
-const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
+const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageUrl }) => {
   const [selectedTab, setSelectedTab] = useState<string>(formTabs[0].title);
   const [textInputs, setTextInputs] = useState<textInputsState>({
     title: "",
@@ -127,7 +128,8 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       title: textInputs.title,
       body: textInputs.description,
       numberOfComments: 0,
-      voteStatus: 0
+      voteStatus: 0,
+      communityImageUrl: communityImageUrl || ""
     };
 
     try {

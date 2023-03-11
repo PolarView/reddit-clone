@@ -12,7 +12,7 @@ import {
   AlertIcon,
   AlertTitle
 } from "@chakra-ui/react";
-import { CImage } from "@/chakra/factory";
+import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsChat, BsDot } from "react-icons/bs";
@@ -42,6 +42,7 @@ type PostItemProps = {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     post: Post
   ) => Promise<boolean>;
+  homePage?: boolean;
 };
 
 const PostItem: React.FC<PostItemProps> = ({
@@ -50,7 +51,8 @@ const PostItem: React.FC<PostItemProps> = ({
   onVote,
   userVoteValue,
   onDeletePost,
-  onSelectPost
+  onSelectPost,
+  homePage
 }) => {
   const [loadingAsset, setLoadingAsset] = useState(true);
   const [error, setError] = useState(false);
@@ -60,7 +62,7 @@ const PostItem: React.FC<PostItemProps> = ({
   const router = useRouter();
 
   const copyToClipBoard = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
+    e.stopPropagation();
     try {
       const currentUrl = router.asPath;
       await navigator.clipboard.writeText(currentUrl);
@@ -131,6 +133,28 @@ const PostItem: React.FC<PostItemProps> = ({
         </Flex>
         <Stack flexGrow={1} p={3} spacing={3} bg="white">
           <Flex align="center" gap={2} color="gray.500">
+            {homePage && (
+              <>
+                {post.communityImageUrl ? (
+                  <Image
+                    borderRadius="full"
+                    boxSize="18px"
+                    src={post.communityImageUrl}
+                    mr={2}
+                    alt="community avatar"
+                  />
+                ) : (
+                  <Icon as={FaReddit} fontSize={18} mr={1} color="blue.500" />
+                )}
+                <Link href={`r/${post.communityId}`}>
+                  <Text
+                    fontWeight={700}
+                    _hover={{ textDecoration: "underline" }}
+                    onClick={(event) => event.stopPropagation()}>{`r/${post.communityId}`}</Text>
+                </Link>
+                <Icon as={BsDot} color="gray.500" fontSize={8} />
+              </>
+            )}
             <Text>{post.creatorDisplayName}</Text>
             <Text>{moment(new Date(post.createdAt.seconds * 1000)).fromNow()}</Text>
           </Flex>

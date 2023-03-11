@@ -3,7 +3,7 @@ import { Community } from "@/types";
 import { useState } from "react";
 import { ref, getDownloadURL, uploadString } from "firebase/storage";
 import { storage, firestore } from "@/firebase/clientApp";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, query, collection, where } from "firebase/firestore";
 import { communityState } from "../atoms/communitiesAtom";
 
 const imageAssetTypes = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
@@ -33,6 +33,13 @@ export const useUpdateCommunityAva = () => {
             imageUrl: downloadURL
           } as Community
         }));
+
+        //TODO: to make a communityImageUrl in post update
+        // const postsRef = query(
+        //   collection(firestore, "posts"),
+        //   where("communityId", "==", communityData.id)
+        // );
+
         setLoadingCommunityAva(false);
         setError(false);
       }
