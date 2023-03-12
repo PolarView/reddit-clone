@@ -36,7 +36,8 @@ const CreatePostLink: React.FC<CreatePostLinkProps> = ({ homePage }) => {
       border="1px solid"
       borderColor="gray.300"
       p={2}
-      mb={4}>
+      mb={4}
+      minW="450px">
       <Icon as={FaReddit} fontSize={36} color="gray.300" mr={4} />
       <Input
         placeholder="Create Post"

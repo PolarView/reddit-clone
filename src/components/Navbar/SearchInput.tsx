@@ -6,7 +6,7 @@ import { Flex } from "@chakra-ui/react";
 
 const SearchInput: React.FC = () => {
   return (
-    <Flex align="center" flexGrow="1" margin="0px 6px">
+    <Flex align="center" flexGrow="1" margin="0px 6px" minW="220px">
       <InputGroup>
         <InputLeftElement pointerEvents="none" children={<SearchIcon mb="1" color="gray.400" />} />
         <Input

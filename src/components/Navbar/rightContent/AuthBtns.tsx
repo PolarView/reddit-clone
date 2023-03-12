@@ -3,7 +3,11 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 import authModalState from "@/atoms/authModalAtom";
 
-const AuthButtons: React.FC = () => {
+type AuthBtnsProps = {
+  commentsPage?: boolean;
+};
+
+const AuthButtons: React.FC<AuthBtnsProps> = ({ commentsPage }) => {
   const setAuthModalState = useSetRecoilState(authModalState);
 
   const openLoginAuthModal = () => {
@@ -19,7 +23,7 @@ const AuthButtons: React.FC = () => {
       <Button
         variant="outline"
         height="28px"
-        display={{ base: "none", sm: "flex" }}
+        display={commentsPage ? { md: "block" } : { base: "none", sm: "flex" }}
         width={{ base: "70px", md: "110px" }}
         mr={2}
         onClick={openLoginAuthModal}>
@@ -28,7 +32,7 @@ const AuthButtons: React.FC = () => {
       <Button
         variant="solid"
         height="28px"
-        display={{ base: "none", sm: "flex" }}
+        display={commentsPage ? { md: "flex" } : { base: "none", sm: "flex" }}
         width={{ base: "70px", md: "110px" }}
         mr={2}
         onClick={openSignupAuthModal}>

@@ -62,13 +62,13 @@ const CommentInput: React.FC<CommentInputProps> = ({
       ) : (
         <Flex
           align="center"
-          justify="space-between"
+          justify="center"
+          gap={3}
           borderRadius={2}
           border="1px solid"
           borderColor="gray.100"
           p={4}>
-          <Text fontWeight={600}>Log in or sign up to leave a comment</Text>
-          <AuthButtons />
+          <AuthButtons commentsPage />
         </Flex>
       )}
     </Flex>

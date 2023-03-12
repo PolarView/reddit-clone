@@ -11,7 +11,12 @@ const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
 
   return (
-    <Flex bg="white" height="44px" padding="6px 12px" justifyContent={{ md: "space-between" }}>
+    <Flex
+      minW="450px"
+      bg="white"
+      height="44px"
+      padding="6px 12px"
+      justifyContent={{ md: "space-between" }}>
       <Link href="/">
         <Flex
           align="center"

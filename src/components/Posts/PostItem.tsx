@@ -131,7 +131,7 @@ const PostItem: React.FC<PostItemProps> = ({
             }}
           />
         </Flex>
-        <Stack flexGrow={1} p={3} spacing={3} bg="white">
+        <Stack flexGrow={1} p={6} spacing={3} bg="white" minW="410px">
           <Flex align="center" gap={2} color="gray.500">
             {homePage && (
               <>
@@ -142,6 +142,7 @@ const PostItem: React.FC<PostItemProps> = ({
                     src={post.communityImageUrl}
                     mr={2}
                     alt="community avatar"
+                    maxWidth="460px"
                   />
                 ) : (
                   <Icon as={FaReddit} fontSize={18} mr={1} color="blue.500" />
@@ -158,10 +159,12 @@ const PostItem: React.FC<PostItemProps> = ({
             <Text>{post.creatorDisplayName}</Text>
             <Text>{moment(new Date(post.createdAt.seconds * 1000)).fromNow()}</Text>
           </Flex>
-          <Text fontSize={23} fontWeight={600}>
-            {post.title}
-          </Text>
-          <Text fontSize={15}>{post.body}</Text>
+          <Box width="100%">
+            <Text fontSize={23} fontWeight={600}>
+              {post.title}
+            </Text>
+            <Text fontSize={15}>{post.body}</Text>
+          </Box>
 
           {post.assetUrl?.assetType === "video" && (
             <Box

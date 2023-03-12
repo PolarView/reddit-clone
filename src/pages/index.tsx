@@ -129,7 +129,7 @@ export default function Home() {
           {homeFeedLoading ? (
             <Spinner />
           ) : (
-            <Stack>
+            <Stack width="100%">
               {postStateValue.posts.map((post) => (
                 <PostItem
                   key={post.id}

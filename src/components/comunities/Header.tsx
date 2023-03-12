@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
   );
 
   return (
-    <Flex width="100%" height="146px" direction="column">
+    <Flex minW="450px" width="100%" height="146px" direction="column">
       <Box bg="blue.500" height="50%"></Box>
       <Flex bg="white" justify="center" flexGrow={1}>
         <Flex maxWidth="850px" width="95%">
